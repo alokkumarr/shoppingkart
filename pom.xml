@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.altimetrik</groupId>
-	<artifactId>kart</artifactId>
+	<artifactId>cart</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>kart</name>
-	<description>Demo project for shopping kart</description>
+	<description>Demo project for shopping Cart</description>
 
 	<properties>
 		<java.version>1.8</java.version>
