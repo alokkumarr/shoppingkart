@@ -11,7 +11,7 @@ public class Discount {
   private Long discountId;
 
   private Double amount;
-  private Long discount;
+  private Double discount;
 
   public Long getDiscountId() {
     return discountId;
@@ -29,11 +29,11 @@ public class Discount {
     this.amount = amount;
   }
 
-  public Long getDiscount() {
+  public Double getDiscount() {
     return discount;
   }
 
-  public void setDiscount(Long discount) {
+  public void setDiscount(Double discount) {
     this.discount = discount;
   }
 }

@@ -1,35 +1,28 @@
-package com.altimetrik.cart.repository.entity;
+package com.altimetrik.cart.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-@Table(name = "TAX_DETAILS")
-public class TaxDetails {
+public class TaxDetail {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long taxId;
-
+  @JsonProperty("id")
+  private Long id;
+  @JsonProperty("country")
   private String country;
-  private String category;
-  private Double salesTax;
+  @JsonProperty("vat")
   private Double vat;
+  @JsonProperty("taxCategory")
+  private String taxCategory;
+  @JsonProperty("salesTax")
+  private Double salesTax;
+  @JsonProperty("importDuty")
   private Double importDuty;
 
-  public Long getTaxId() {
-    return taxId;
+  public Long getId() {
+    return id;
   }
 
-  public void setTaxId(Long taxId) {
-    this.taxId = taxId;
-  }
-
-  public String getCategory() {
-    return category;
-  }
-
-  public void setCategory(String category) {
-    this.category = category;
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getCountry() {
@@ -38,6 +31,14 @@ public class TaxDetails {
 
   public void setCountry(String country) {
     this.country = country;
+  }
+
+  public String getTaxCategory() {
+    return taxCategory;
+  }
+
+  public void setTaxCategory(String taxCategory) {
+    this.taxCategory = taxCategory;
   }
 
   public Double getSalesTax() {

@@ -25,7 +25,6 @@ import java.util.List;
     value = {
         @ApiResponse(code = 202, message = "Request has been accepted without any error"),
         @ApiResponse(code = 400, message = "Bad Request"),
-        @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
         @ApiResponse(
             code = 403,
             message = "Accessing the resource you were trying to reach is forbidden"),

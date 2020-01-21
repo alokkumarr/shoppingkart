@@ -1,0 +1,18 @@
+{"discounts": [
+  {
+    "discountAmount": 1500,
+    "discountPercentage": 5
+  },
+  {
+    "discountAmount": 2000,
+    "discountPercentage": 10
+  },
+  {
+    "discountAmount": 2500,
+    "discountPercentage": 15
+  },
+  {
+    "discountAmount": 3000,
+    "discountPercentage": 20
+  }
+]}

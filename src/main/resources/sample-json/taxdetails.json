@@ -1,0 +1,7 @@
+{
+  "country":"India",
+  "vat":5,
+  "taxCategory": "Sales",
+  "salesTax":5,
+  "importDuty":1.5
+}

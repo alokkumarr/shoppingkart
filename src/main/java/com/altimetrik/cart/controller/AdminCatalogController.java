@@ -1,7 +1,11 @@
 package com.altimetrik.cart.controller;
 
+import com.altimetrik.cart.model.DiscountDetails;
 import com.altimetrik.cart.model.Items;
+import com.altimetrik.cart.model.TaxDetail;
+import com.altimetrik.cart.repository.entity.Discount;
 import com.altimetrik.cart.repository.entity.Item;
+import com.altimetrik.cart.repository.entity.TaxDetails;
 import com.altimetrik.cart.service.DiscountService;
 import com.altimetrik.cart.service.ItemService;
 import com.altimetrik.cart.service.TaxDetailService;
@@ -24,7 +28,6 @@ import java.util.List;
     value = {
         @ApiResponse(code = 202, message = "Request has been accepted without any error"),
         @ApiResponse(code = 400, message = "Bad Request"),
-        @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
         @ApiResponse(
             code = 403,
             message = "Accessing the resource you were trying to reach is forbidden"),
@@ -114,6 +117,36 @@ public class AdminCatalogController {
   @GetMapping(value = "/item")
   public ResponseEntity<List<Item>> fetchAllItems() {
     List<Item> list = itemService.getItems();
+    return new ResponseEntity<>(list, HttpStatus.OK);
+  }
+
+  @ApiOperation(
+      value = "",
+      nickname = "addDiscountDetails",
+      notes = "This api will add the discount details to item catalog.",
+      response = ResponseEntity.class)
+  @PostMapping(value = "/discount")
+  public ResponseEntity<List<Discount>> addDiscountDetails(HttpServletResponse response,
+                                                   @RequestBody DiscountDetails details) {
+    if (details == null) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+    }
+    List<Discount> list = discountService.addDiscountDetails(details);
+    return new ResponseEntity<>(list, HttpStatus.OK);
+  }
+
+  @ApiOperation(
+      value = "",
+      nickname = "addTaxDetails",
+      notes = "This api will add the tax details in to catalog.",
+      response = ResponseEntity.class)
+  @PostMapping(value = "/tax")
+  public ResponseEntity<TaxDetails> addTaxDetails(HttpServletResponse response,
+                                                           @RequestBody TaxDetail details) {
+    if (details == null) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+    }
+    TaxDetails list = taxDetailService.addTaxDetails(details);
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 }
