@@ -1,4 +1,4 @@
-package com.altimetrik.kart.entity;
+package com.altimetrik.kart.repository.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,8 +1,9 @@
-package com.altimetrik.kart.service;
+package com.altimetrik.kart.service.impl;
 
-import com.altimetrik.kart.entity.Customer;
 import com.altimetrik.kart.model.CustomerDetails;
 import com.altimetrik.kart.repository.CustomerRepository;
+import com.altimetrik.kart.repository.entity.Customer;
+import com.altimetrik.kart.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

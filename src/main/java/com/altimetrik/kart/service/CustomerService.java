@@ -1,7 +1,7 @@
 package com.altimetrik.kart.service;
 
-import com.altimetrik.kart.entity.Customer;
 import com.altimetrik.kart.model.CustomerDetails;
+import com.altimetrik.kart.repository.entity.Customer;
 
 import java.util.List;
 

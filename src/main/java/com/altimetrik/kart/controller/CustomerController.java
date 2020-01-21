@@ -1,7 +1,7 @@
 package com.altimetrik.kart.controller;
 
-import com.altimetrik.kart.entity.Customer;
 import com.altimetrik.kart.model.CustomerDetails;
+import com.altimetrik.kart.repository.entity.Customer;
 import com.altimetrik.kart.service.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

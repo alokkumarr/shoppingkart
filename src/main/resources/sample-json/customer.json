@@ -1,0 +1,7 @@
+{
+  "name":"Admin Name",
+  "email":"admin@gmail.com",
+  "phoneNumber": 1234567890,
+  "shippingAddress":"Address 1",
+  "billingAddress":"Address 1"
+}
