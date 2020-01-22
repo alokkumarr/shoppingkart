@@ -1,23 +1,38 @@
 {"items": [
   {
-    "name": "One India Girl",
-    "type": "Book",
+    "isbn": "IB123",
+    "title": "One India Girl",
+    "category": "Book",
+    "publisher": "Oxford",
+    "bestseller": "yes",
+    "language": "English, French",
     "author": "Chetan Bhagat",
     "price": 56.98,
+    "year": "2006",
     "description": "Romantic story"
   },
   {
-    "name": "The Great Gatsby",
-    "type": "Book",
-    "author" : "Fitzgerald, F. Scott",
-    "price": 156.90,
+    "isbn": "IB124",
+    "title": "The Great Gatsby",
+    "category": "Book",
+    "publisher": "Oxford",
+    "bestseller": "yes",
+    "language": "English, French",
+    "author": "Fitzgerald, F. Scott",
+    "price": 156.98,
+    "year": "2009",
     "description": "Suspense and drama"
   },
   {
-    "name": "A Passage to India",
-    "type": "Book",
-    "author" : "Fitzgerald, F. Scott",
-    "price": 356.00,
+    "isbn": "IB1256",
+    "title": "A Passage to India",
+    "category": "Book",
+    "publisher": "Oxford",
+    "bestseller": "yes",
+    "language": "English, French",
+    "author": "Fitzgerald, F.",
+    "price": 356,
+    "year": "2006",
     "description": "Indian history and culture"
   }
 ]}

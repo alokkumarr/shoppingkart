@@ -20,12 +20,18 @@ public class ItemServiceImpl implements ItemService {
   @Override
   public List<Item> addItemDetails(Items items) {
     List<Item> itemList = new ArrayList<>();
-    items.getItemDetails().stream().forEach(itemDetails -> {
+    items.getItemDetails().stream().forEach(details -> {
       Item item = new Item();
-      item.setName(itemDetails.getName());
-      item.setType(itemDetails.getType());
-      item.setPrice(itemDetails.getPrice());
-      item.setDescription(itemDetails.getDescription());
+      item.setIsbn(details.getIsbn());
+      item.setYear(details.getYear());
+      item.setTitle(details.getTitle());
+      item.setCategory(details.getCategory());
+      item.setAuthor(details.getAuthor());
+      item.setPublisher(details.getPublisher());
+      item.setBestseller(details.getBestseller());
+      item.setPrice(details.getPrice());
+      item.setLanguage(details.getLanguage());
+      item.setDescription(details.getDescription());
       itemList.add(item);
     });
     return itemRepository.saveAll(itemList);
@@ -56,10 +62,16 @@ public class ItemServiceImpl implements ItemService {
     Item it = new Item();
     ItemDetails details = items.getItemDetails().get(0);
     it.setId(details.getId());
-    it.setType(details.getType());
-    it.setName(details.getName());
-    it.setDescription(details.getDescription());
+    it.setIsbn(details.getIsbn());
+    it.setYear(details.getYear());
+    it.setTitle(details.getTitle());
+    it.setCategory(details.getCategory());
+    it.setAuthor(details.getAuthor());
+    it.setPublisher(details.getPublisher());
+    it.setBestseller(details.getBestseller());
     it.setPrice(details.getPrice());
+    it.setDescription(details.getDescription());
+    it.setLanguage(details.getLanguage());
     return itemRepository.saveAndFlush(it);
   }
 

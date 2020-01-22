@@ -34,7 +34,6 @@ public class CustomerServiceImpl implements CustomerService {
       addr.setState(States.getState(address.getState()));
       addr.setStreet(address.getStreet());
       addr.setType(address.getType().toUpperCase());
-      addr.setCustomer(customer);
       addressList.add(addr);
     });
     customer.setCustomerAddress(addressList);

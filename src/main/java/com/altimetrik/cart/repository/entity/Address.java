@@ -1,8 +1,5 @@
 package com.altimetrik.cart.repository.entity;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 
 @Entity
@@ -11,7 +8,7 @@ public class Address {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int addrId;
+  private Long addrId;
 
   @Column(name = "TYPE")
   private String type;
@@ -24,29 +21,25 @@ public class Address {
   @Column(name = "COUNTRY")
   private String country;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "CUST_ID", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private Customer customer;
   public Address() {
     super();
   }
 
-  public Address(String type, String street, String city, String state, String country, Customer customer) {
+  public Address(Long addrId, String type, String street, String city, String state, String country) {
     super();
+    this.addrId=addrId;
     this.type = type;
     this.street = street;
     this.city = city;
     this.state = state;
     this.country = country;
-    this.customer = customer;
   }
 
-  public int getAddrId() {
+  public Long getAddrId() {
     return addrId;
   }
 
-  public void setAddrId(int addrId) {
+  public void setAddrId(Long addrId) {
     this.addrId = addrId;
   }
 
@@ -88,13 +81,5 @@ public class Address {
 
   public void setCountry(String country) {
     this.country = country;
-  }
-
-  public Customer getCustomer() {
-    return customer;
-  }
-
-  public void setCustomer(Customer customer) {
-    this.customer = customer;
   }
 }

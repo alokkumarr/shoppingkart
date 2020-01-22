@@ -6,19 +6,24 @@ public class ItemDetails {
 
   @JsonProperty("id")
   private Long id;
-
-  @JsonProperty("type")
-  private String type;
-
-  @JsonProperty("name")
-  private String name;
-
+  @JsonProperty("isbn")
+  private String isbn;
+  @JsonProperty("title")
+  private String title;
+  @JsonProperty("year")
+  private String year;
+  @JsonProperty("publisher")
+  private String publisher;
+  @JsonProperty("bestseller")
+  private String bestseller;
+  @JsonProperty("category")
+  private String category;
+  @JsonProperty("language")
+  private String language;
   @JsonProperty("author")
   private String author;
-
   @JsonProperty("price")
   private Double price;
-
   @JsonProperty("description")
   private String description;
 
@@ -30,12 +35,60 @@ public class ItemDetails {
     this.id = id;
   }
 
-  public String getType() {
-    return type;
+  public String getIsbn() {
+    return isbn;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public void setIsbn(String isbn) {
+    this.isbn = isbn;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getYear() {
+    return year;
+  }
+
+  public void setYear(String year) {
+    this.year = year;
+  }
+
+  public String getPublisher() {
+    return publisher;
+  }
+
+  public void setPublisher(String publisher) {
+    this.publisher = publisher;
+  }
+
+  public String getBestseller() {
+    return bestseller;
+  }
+
+  public void setBestseller(String bestseller) {
+    this.bestseller = bestseller;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
   }
 
   public String getAuthor() {
@@ -44,14 +97,6 @@ public class ItemDetails {
 
   public void setAuthor(String author) {
     this.author = author;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public Double getPrice() {

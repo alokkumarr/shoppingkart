@@ -15,7 +15,8 @@ public class Customer {
   private String email;
   private Long phoneNumber;
 
-  @OneToMany(fetch = FetchType.EAGER,mappedBy="customer",cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinColumn(name = "CUST_ID")
   private Set<Address> customerAddress;
 
   public Customer() {

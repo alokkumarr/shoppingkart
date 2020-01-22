@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -81,7 +82,12 @@ public class CustomerController {
       response = ResponseEntity.class)
   @GetMapping(value = "")
   public ResponseEntity<List<Customer>> getCustomers() {
-    List<Customer> list = customerService.getCustomers();
+    List<Customer> list = new ArrayList<>();
+    try{
+      list = customerService.getCustomers();
+    }catch (Exception ex) {
+      LOGGER.error("Error while fetching the customer details.");
+    }
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 }
