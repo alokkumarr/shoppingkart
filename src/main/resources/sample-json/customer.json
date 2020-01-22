@@ -1,7 +1,21 @@
 {
-  "name":"Admin Name",
-  "email":"admin@gmail.com",
+  "name": "Admin Name",
+  "email": "admin@gmail.com",
   "phoneNumber": 1234567890,
-  "shippingAddress":"Address 1",
-  "billingAddress":"Address 1"
+  "addresses": [
+    {
+      "type": "Billing",
+      "street": "Address 1",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India"
+    },
+    {
+      "type": "Shipping",
+      "street": "Bill address",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India"
+    }
+  ]
 }

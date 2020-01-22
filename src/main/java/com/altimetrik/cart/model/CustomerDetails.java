@@ -2,6 +2,8 @@ package com.altimetrik.cart.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public class CustomerDetails {
 
   @JsonProperty("id")
@@ -12,10 +14,8 @@ public class CustomerDetails {
   private String customerEmail;
   @JsonProperty("phoneNumber")
   private Long phoneNumber;
-  @JsonProperty("shippingAddress")
-  private String shippingAddress;
-  @JsonProperty("billingAddress")
-  private String billingAddress;
+  @JsonProperty("addresses")
+  private List<Address> addresses;
 
   public Long getCustomerId() {
     return customerId;
@@ -49,19 +49,11 @@ public class CustomerDetails {
     this.phoneNumber = phoneNumber;
   }
 
-  public String getShippingAddress() {
-    return shippingAddress;
+  public List<Address> getAddresses() {
+    return addresses;
   }
 
-  public void setShippingAddress(String shippingAddress) {
-    this.shippingAddress = shippingAddress;
-  }
-
-  public String getBillingAddress() {
-    return billingAddress;
-  }
-
-  public void setBillingAddress(String billingAddress) {
-    this.billingAddress = billingAddress;
+  public void setAddresses(List<Address> addresses) {
+    this.addresses = addresses;
   }
 }

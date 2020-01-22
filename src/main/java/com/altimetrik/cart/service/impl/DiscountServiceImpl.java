@@ -22,10 +22,10 @@ public class DiscountServiceImpl implements DiscountService {
     details.getDiscounts().stream().forEach(discount -> {
       Discount dis = new Discount();
       dis.setAmount(discount.getDiscountAmount());
+      dis.setMaxAmount(discount.getMaxAmount());
       dis.setDiscount(discount.getDiscountPercentage());
       list.add(dis);
     });
-    discountRepository.saveAll(list);
-    return null;
+    return discountRepository.saveAll(list);
   }
 }

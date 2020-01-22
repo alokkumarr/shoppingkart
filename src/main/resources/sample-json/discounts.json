@@ -1,18 +1,22 @@
 {"discounts": [
   {
-    "discountAmount": 1500,
+    "amount": 1500,
+    "maxAmount":1999,
     "discountPercentage": 5
   },
   {
-    "discountAmount": 2000,
+    "amount": 2000,
+    "maxAmount":2499,
     "discountPercentage": 10
   },
   {
-    "discountAmount": 2500,
+    "amount": 2500,
+    "maxAmount":2999,
     "discountPercentage": 15
   },
   {
-    "discountAmount": 3000,
+    "amount": 3000,
+    "maxAmount": 1000000,
     "discountPercentage": 20
   }
 ]}

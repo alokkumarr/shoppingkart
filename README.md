@@ -10,3 +10,7 @@ There are REST API for admin user to update the shopping catalog.
 All the api details are available in the swagger document.
 
 `http://localhost:8900/swagger-ui.html#/`
+
+Below url provide all the in-memory database details.
+
+`http://localhost:8900/h2-console/login.jsp`

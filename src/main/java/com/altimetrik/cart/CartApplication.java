@@ -1,6 +1,6 @@
 package com.altimetrik.cart;
 
-import com.altimetrik.cart.service.OnStartUpService;
+import com.altimetrik.cart.service.utils.LoadOnStartUpService;
 import info.faljse.SDNotify.SDNotify;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class CartApplication {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CartApplication.class);
 
 	@Autowired
-	private OnStartUpService startUpService;
+	private LoadOnStartUpService startUpService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CartApplication.class, args);
@@ -35,7 +35,7 @@ public class CartApplication {
 		LOGGER.info("Notifying service manager about start-up completion");
 		SDNotify.sendNotify();
 		try {
-			startUpService.onStartUpLoad();
+			startUpService.catalogLoadOnStartUp();
 		} catch (Exception ex) {
 			LOGGER.error("Execution Result migration failed", ex);
 		}

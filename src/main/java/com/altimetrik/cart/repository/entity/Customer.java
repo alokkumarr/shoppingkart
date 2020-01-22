@@ -1,22 +1,34 @@
 package com.altimetrik.cart.repository.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Customer {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "CUST_ID")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;
   private String email;
   private Long phoneNumber;
-  private String billAddress;
-  private String shipAddress;
+
+  @OneToMany(fetch = FetchType.EAGER,mappedBy="customer",cascade = CascadeType.ALL)
+  private Set<Address> customerAddress;
+
+  public Customer() {
+    super();
+  }
+
+  public Customer(String name, String email, Long phoneNumber, Set<Address> customerAddress) {
+    super();
+    this.name = name;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.customerAddress = customerAddress;
+  }
 
   public Long getId() {
     return id;
@@ -50,19 +62,11 @@ public class Customer {
     this.phoneNumber = phoneNumber;
   }
 
-  public String getBillAddress() {
-    return billAddress;
+  public Set<Address> getCustomerAddress() {
+    return customerAddress;
   }
 
-  public void setBillAddress(String billAddress) {
-    this.billAddress = billAddress;
-  }
-
-  public String getShipAddress() {
-    return shipAddress;
-  }
-
-  public void setShipAddress(String shipAddress) {
-    this.shipAddress = shipAddress;
+  public void setCustomerAddress(Set<Address> customerAddress) {
+    this.customerAddress = customerAddress;
   }
 }

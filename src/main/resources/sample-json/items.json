@@ -1,21 +1,21 @@
 {"items": [
   {
     "name": "One India Girl",
-    "type": "BOOK",
+    "type": "Book",
     "author": "Chetan Bhagat",
     "price": 56.98,
     "description": "Romantic story"
   },
   {
     "name": "The Great Gatsby",
-    "type": "BOOK",
+    "type": "Book",
     "author" : "Fitzgerald, F. Scott",
     "price": 156.90,
     "description": "Suspense and drama"
   },
   {
     "name": "A Passage to India",
-    "type": "BOOK",
+    "type": "Book",
     "author" : "Fitzgerald, F. Scott",
     "price": 356.00,
     "description": "Indian history and culture"

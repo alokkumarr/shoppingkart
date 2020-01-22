@@ -7,10 +7,12 @@ import javax.persistence.*;
 public class Discount {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "DISCOUNT_Id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long discountId;
 
   private Double amount;
+  private Double maxAmount;
   private Double discount;
 
   public Long getDiscountId() {
@@ -35,5 +37,13 @@ public class Discount {
 
   public void setDiscount(Double discount) {
     this.discount = discount;
+  }
+
+  public Double getMaxAmount() {
+    return maxAmount;
+  }
+
+  public void setMaxAmount(Double maxAmount) {
+    this.maxAmount = maxAmount;
   }
 }

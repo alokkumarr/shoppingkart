@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class TaxDetails {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long taxId;
 
   private String country;

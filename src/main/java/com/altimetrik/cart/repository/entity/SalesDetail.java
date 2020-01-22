@@ -8,16 +8,26 @@ import javax.persistence.*;
 public class SalesDetail {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private Long customerId;
   private String itemId;
+  private Integer quantity;
   private Double price;
   private Double tax;
   private Double vat;
   private Double duties;
   private Double grossAmount;
+
+
+  public Integer getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(Integer quantity) {
+    this.quantity = quantity;
+  }
 
   public Long getId() {
     return id;
