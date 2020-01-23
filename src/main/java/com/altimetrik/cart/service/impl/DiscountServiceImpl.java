@@ -28,4 +28,9 @@ public class DiscountServiceImpl implements DiscountService {
     });
     return discountRepository.saveAll(list);
   }
+
+  @Override
+  public List<Discount> fetchAllDiscount() {
+    return discountRepository.findAll();
+  }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface DiscountService {
   List<Discount> addDiscountDetails(DiscountDetails details);
+  List<Discount> fetchAllDiscount();
 }

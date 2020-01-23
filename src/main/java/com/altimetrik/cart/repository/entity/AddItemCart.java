@@ -18,6 +18,7 @@ public class AddItemCart {
   private String sku;
   private String name;
   private Double price;
+  private String category;
   private String productType;
   private String description;
 
@@ -35,6 +36,14 @@ public class AddItemCart {
 
   public void setItemId(Long itemId) {
     this.itemId = itemId;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
   }
 
   public Long getCustomerId() {

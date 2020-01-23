@@ -5,6 +5,7 @@ import com.altimetrik.cart.model.response.Receipt;
 import com.altimetrik.cart.repository.AddItemCartRepository;
 import com.altimetrik.cart.repository.entity.*;
 import com.altimetrik.cart.service.CustomerService;
+import com.altimetrik.cart.service.DiscountService;
 import com.altimetrik.cart.service.SalesService;
 import com.altimetrik.cart.service.TaxDetailService;
 import org.slf4j.Logger;
@@ -15,19 +16,23 @@ import org.springframework.stereotype.Service;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SalesServiceImpl implements SalesService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SalesServiceImpl.class);
-
   private static final DecimalFormat df = new DecimalFormat("####0.00");
+
+  @Autowired
+  private DiscountService discountService;
   @Autowired
   private CustomerService customerService;
   @Autowired
-  private AddItemCartRepository cartRepository;
-  @Autowired
   private TaxDetailService taxDetailService;
+  @Autowired
+  private AddItemCartRepository cartRepository;
 
   /**
    * Calculate the taxes
@@ -38,7 +43,7 @@ public class SalesServiceImpl implements SalesService {
    */
   private static Double calculateTax(Double basePrice, Double valueOf) {
     if (basePrice > 0) {
-      Double taxValue =  (basePrice * valueOf) / 100;
+      Double taxValue = (basePrice * valueOf) / 100;
       return Double.valueOf(df.format(taxValue));
     } else {
       return 0.0;
@@ -49,7 +54,6 @@ public class SalesServiceImpl implements SalesService {
   public Receipt checkOut(Long customerId) {
 
     Receipt receipt = new Receipt();
-    SalesDetail salesDetail = new SalesDetail();
     if (customerId > 0) {
       Customer customer = customerService.getCustomerById(customerId);
       if (customer != null && customer.getId() > 0) {
@@ -60,7 +64,7 @@ public class SalesServiceImpl implements SalesService {
         TaxDetails[] taxDetail = {new TaxDetails()};
         if (add.getState() != null && add.getCountry() != null) {
           taxDetail[0] = taxDetailService.findByRegion(add.getState(), add.getCountry());
-          LOGGER.info("Tax details from for the region : {} ", taxDetail);
+          LOGGER.info("Tax details from for the region : " + taxDetail);
         }
 
         List<ProductItem> productItems = new ArrayList<>();
@@ -69,7 +73,6 @@ public class SalesServiceImpl implements SalesService {
           cartItems.stream().forEach(addItemCart -> {
             ProductItem productItem = new ProductItem();
             productItem.setName(addItemCart.getName());
-            productItem.setCategory(addItemCart.getProductType());
             productItem.setPrice(addItemCart.getPrice());
             productItem.setDescription(addItemCart.getDescription());
             TaxDetails taxDetails = taxDetail[0];
@@ -92,6 +95,23 @@ public class SalesServiceImpl implements SalesService {
             }
           });
           receipt.setProductItems(productItems);
+
+          // Calculate the total amount and discount
+          Double totalAmount = productItems.stream().collect(Collectors.summingDouble(ProductItem::getTotalPrice));
+          receipt.setTotalAmount(Double.valueOf(df.format(totalAmount)));
+
+          // calculate the discount
+          List<Discount> discounts = discountService.fetchAllDiscount();
+          if (discounts != null && !discounts.isEmpty()) {
+            Optional<Discount> discountList = discounts.stream().filter(dis -> dis.getAmount() > totalAmount
+                || dis.getMaxAmount() < totalAmount).findAny();
+            if (discountList.isPresent()) {
+              receipt.setDiscount(Double.valueOf(df.format(discountList.get().getDiscount())));
+            }
+          }
+          // final amount to be paid
+          double finalAmount = totalAmount - receipt.getDiscount();
+          receipt.setAmountToPaid(Double.valueOf(df.format(finalAmount)));
         }
       }
     }

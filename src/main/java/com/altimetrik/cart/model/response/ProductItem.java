@@ -10,7 +10,6 @@ public class ProductItem implements Serializable {
   private Double tax;
   private Double duties;
   private Double totalPrice;
-  private String category;
   private String description;
 
   public String getName() {
@@ -59,14 +58,6 @@ public class ProductItem implements Serializable {
 
   public void setTotalPrice(Double totalPrice) {
     this.totalPrice = totalPrice;
-  }
-
-  public String getCategory() {
-    return category;
-  }
-
-  public void setCategory(String category) {
-    this.category = category;
   }
 
   public String getDescription() {

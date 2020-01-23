@@ -7,6 +7,7 @@ public class Receipt implements Serializable {
 
   private Double discount;
   private Double totalAmount;
+  private Double amountToPaid;
   private List<ProductItem> productItems;
 
   public Double getDiscount() {
@@ -31,5 +32,13 @@ public class Receipt implements Serializable {
 
   public void setProductItems(List<ProductItem> productItems) {
     this.productItems = productItems;
+  }
+
+  public Double getAmountToPaid() {
+    return amountToPaid;
+  }
+
+  public void setAmountToPaid(Double amountToPaid) {
+    this.amountToPaid = amountToPaid;
   }
 }

@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,24 +35,24 @@ public class AddToKartServiceImpl implements AddToKartService {
     if (custRef.getCustomerId() > 0) {
       Customer customer = customerService.getCustomerById(custRef.getCustomerId());
       if (customer.getId() > 0) {
-        List<ATCItem> atcItems = new ArrayList<>();
         AddToCartItem cartItem = addToCartRequest.getCartItem();
         if (!StringUtils.isEmpty(cartItem.getItemId())) {
           Long itemId = Long.valueOf(cartItem.getItemId());
           Item item = itemService.getItemById(itemId);
           // process add item details in table
-          ATCItem atcItem = buildItem(cartItem, item);
           List<AddItemCart> list = cartRepository.findItemBySKU(item.getSku());
           if (list != null && !list.isEmpty()) {
-            atcItem.setQty(cartItem.getQty());
             cartRepository.updateItemBySKU(cartItem.getQty(), list.get(0).getId());
           } else {
+            ATCItem atcItem = buildItem(cartItem, item);
             AddItemCart addItemCart = getAddItemCart(customer.getId(), atcItem);
             addItemCart.setDescription(item.getBookDetails().getDescription());
             cartRepository.save(addItemCart);
           }
-          atcItems.add(atcItem);
-          cartResponse.setCartResponse(atcItems);
+
+          // send all cart details to user
+          List<AddItemCart> cartItems = cartRepository.findItemByCustomerId(customer.getId());
+          cartResponse.setCartResponse(cartItems);
           cartResponse.setMessage("Item added in the cart.");
         } else {
           cartResponse.setMessage("No item available for the request.");
@@ -74,15 +73,12 @@ public class AddToKartServiceImpl implements AddToKartService {
       if (customer.getId() > 0) {
         AddToCartItem cartItem = addToCartRequest.getCartItem();
         if (!StringUtils.isEmpty(cartItem.getItemId())) {
-          List<ATCItem> atcItems = new ArrayList<>();
           Long itemId = Long.valueOf(cartItem.getItemId());
           Item item = itemService.getItemById(itemId);
+          List<AddItemCart> list = cartRepository.findItemBySKU(item.getSku());
           Integer deletedCart = cartRepository.deleteItemBySKU(item.getSku());
           if (deletedCart > 0) {
-            ATCItem atcItem = buildItem(cartItem, item);
-
-            atcItems.add(atcItem);
-            cartResponse.setCartResponse(atcItems);
+            cartResponse.setCartResponse(list);
             cartResponse.setMessage("Items cleared from Cart.");
           } else {
             cartResponse.setMessage("Cart Empty.");
@@ -98,7 +94,8 @@ public class AddToKartServiceImpl implements AddToKartService {
     atcItem.setItemId(item.getId());
     atcItem.setSku(item.getSku());
     atcItem.setName(item.getName());
-    atcItem.setProductType(item.getCategory());
+    atcItem.setCategory(item.getCategory());
+    atcItem.setProductType(item.getBookDetails().getType());
     atcItem.setQty(cartItem.getQty());
     atcItem.setPrice(item.getPrice());
     return atcItem;
@@ -113,6 +110,7 @@ public class AddToKartServiceImpl implements AddToKartService {
     addItemCart.setProductType(atcItem.getProductType());
     addItemCart.setPrice(atcItem.getPrice());
     addItemCart.setSku(atcItem.getSku());
+    addItemCart.setCategory(atcItem.getCategory());
     return addItemCart;
   }
 }

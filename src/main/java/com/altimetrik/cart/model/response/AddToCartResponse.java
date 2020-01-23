@@ -1,5 +1,6 @@
 package com.altimetrik.cart.model.response;
 
+import com.altimetrik.cart.repository.entity.AddItemCart;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -7,16 +8,16 @@ import java.util.List;
 public class AddToCartResponse {
 
   @JsonProperty("cartDetails")
-  private List<ATCItem> cartResponse;
+  private List<AddItemCart> cartResponse;
 
   @JsonProperty("message")
   private String message;
 
-  public List<ATCItem> getCartResponse() {
+  public List<AddItemCart> getCartResponse() {
     return cartResponse;
   }
 
-  public void setCartResponse(List<ATCItem> cartResponse) {
+  public void setCartResponse(List<AddItemCart> cartResponse) {
     this.cartResponse = cartResponse;
   }
 

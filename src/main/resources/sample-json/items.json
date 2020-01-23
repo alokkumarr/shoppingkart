@@ -8,7 +8,7 @@
     "bestseller": "yes",
     "language": "English, French",
     "author": "Chetan Bhagat",
-    "price": 56.98,
+    "price": 356.98,
     "year": "2006",
     "description": "Romantic story"
   },
@@ -21,7 +21,7 @@
     "bestseller": "yes",
     "language": "English, French",
     "author": "Fitzgerald, F. Scott",
-    "price": 156.98,
+    "price": 456.98,
     "year": "2009",
     "description": "Suspense and drama"
   },
@@ -34,7 +34,7 @@
     "bestseller": "yes",
     "language": "English, French",
     "author": "Fitzgerald, F.",
-    "price": 356,
+    "price": 356.7,
     "year": "2006",
     "description": "Indian history and culture"
   }

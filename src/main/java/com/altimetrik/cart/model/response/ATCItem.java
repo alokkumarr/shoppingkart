@@ -13,10 +13,20 @@ public class ATCItem {
   private Double price;
   @JsonProperty("name")
   private String name;
+  @JsonProperty("category")
+  private String category;
   @JsonProperty("productType")
   private String productType;
   @JsonProperty("description")
   private String description;
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
 
   public Long getItemId() {
     return itemId;
