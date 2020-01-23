@@ -79,7 +79,7 @@ public class SalesController {
 
   @ApiOperation(
       value = "",
-      nickname = "addItem",
+      nickname = "deleteCart",
       notes = "This api will add the items to the cart and calculate the Tax, VAT and imported duties.",
       response = ResponseEntity.class)
   @DeleteMapping(value = "/cart")
