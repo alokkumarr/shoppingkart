@@ -14,7 +14,8 @@ public class ItemDetails {
   private Double price;
   @JsonProperty("description")
   private String description;
-
+  @JsonProperty("type")
+  private String type;
   @JsonProperty("year")
   private String year;
   @JsonProperty("publisher")
@@ -114,5 +115,13 @@ public class ItemDetails {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 }

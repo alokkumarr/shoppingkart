@@ -10,6 +10,7 @@ public interface ItemService {
 
   List<Item> addItemDetails(Items itemDetails);
   Item getItemById(Long id);
+  List<Item> getItemBySKU(String sku);
   List<Item> getItems();
   void deleteItems();
   void deleteItemById(Long id);

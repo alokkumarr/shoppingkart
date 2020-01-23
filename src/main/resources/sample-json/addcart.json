@@ -1,0 +1,8 @@
+{
+  "cartItem": {
+    "itemId": "3",
+    "qty": 3,
+    "sku": "IB125"
+  },
+  "customerRef": {"id": "1"}
+}

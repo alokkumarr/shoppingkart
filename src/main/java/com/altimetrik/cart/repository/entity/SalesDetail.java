@@ -2,6 +2,7 @@ package com.altimetrik.cart.repository.entity;
 
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table
@@ -12,14 +13,23 @@ public class SalesDetail {
   private Long id;
 
   private Long customerId;
-  private String itemId;
+  private String itemSku;
+  private Long itemId;
   private Integer quantity;
   private Double price;
   private Double tax;
   private Double vat;
   private Double duties;
   private Double grossAmount;
+  private Date salesDate;
 
+  public String getItemSku() {
+    return itemSku;
+  }
+
+  public void setItemSku(String itemSku) {
+    this.itemSku = itemSku;
+  }
 
   public Integer getQuantity() {
     return quantity;
@@ -45,11 +55,11 @@ public class SalesDetail {
     this.customerId = customerId;
   }
 
-  public String getItemId() {
+  public Long getItemId() {
     return itemId;
   }
 
-  public void setItemId(String itemId) {
+  public void setItemId(Long itemId) {
     this.itemId = itemId;
   }
 
@@ -91,5 +101,13 @@ public class SalesDetail {
 
   public void setGrossAmount(Double grossAmount) {
     this.grossAmount = grossAmount;
+  }
+
+  public Date getSalesDate() {
+    return salesDate;
+  }
+
+  public void setSalesDate(Date salesDate) {
+    this.salesDate = salesDate;
   }
 }

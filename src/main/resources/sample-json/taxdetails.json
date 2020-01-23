@@ -1,7 +1,8 @@
 {
+  "vat":6,
+  "salesTax":12,
+  "importDuty":5,
   "country":"India",
-  "vat":5,
-  "taxCategory": "Sales",
-  "salesTax":5,
-  "importDuty":1.5
+  "state" : "Karnataka",
+  "taxCategory": "Sales"
 }

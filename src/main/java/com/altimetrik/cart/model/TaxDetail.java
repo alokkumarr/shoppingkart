@@ -8,6 +8,8 @@ public class TaxDetail {
   private Long id;
   @JsonProperty("country")
   private String country;
+  @JsonProperty("state")
+  private String state;
   @JsonProperty("vat")
   private Double vat;
   @JsonProperty("taxCategory")
@@ -63,5 +65,13 @@ public class TaxDetail {
 
   public void setVat(Double vat) {
     this.vat = vat;
+  }
+
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
   }
 }

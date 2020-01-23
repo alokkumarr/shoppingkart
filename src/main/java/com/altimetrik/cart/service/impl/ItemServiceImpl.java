@@ -2,7 +2,7 @@ package com.altimetrik.cart.service.impl;
 
 import com.altimetrik.cart.model.ItemDetails;
 import com.altimetrik.cart.model.Items;
-import com.altimetrik.cart.repository.ItemRepository;
+import com.altimetrik.cart.repository.InventoryItemRepository;
 import com.altimetrik.cart.repository.entity.BookDetails;
 import com.altimetrik.cart.repository.entity.Item;
 import com.altimetrik.cart.service.ItemService;
@@ -16,7 +16,7 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
 
   @Autowired
-  private ItemRepository itemRepository;
+  private InventoryItemRepository inventoryItemRepository;
 
   @Override
   public List<Item> addItemDetails(Items items) {
@@ -27,9 +27,10 @@ public class ItemServiceImpl implements ItemService {
       item.setSku(details.getSku());
       item.setCategory(details.getCategory());
       item.setPrice(details.getPrice());
-      if ("Book".equalsIgnoreCase(details.getCategory())){
+      if ("Book".equalsIgnoreCase(details.getCategory())) {
         BookDetails bookDetails = new BookDetails();
         bookDetails.setYear(details.getYear());
+        bookDetails.setType(details.getType());
         bookDetails.setAuthor(details.getAuthor());
         bookDetails.setPublisher(details.getPublisher());
         bookDetails.setBestseller(details.getBestseller());
@@ -40,27 +41,32 @@ public class ItemServiceImpl implements ItemService {
 
       itemList.add(item);
     });
-    return itemRepository.saveAll(itemList);
+    return inventoryItemRepository.saveAll(itemList);
   }
 
   @Override
   public Item getItemById(Long id) {
-    return itemRepository.findById(id).get();
+    return inventoryItemRepository.findById(id).get();
+  }
+
+  @Override
+  public List<Item> getItemBySKU(String sku) {
+    return inventoryItemRepository.findBySKU(sku);
   }
 
   @Override
   public List<Item> getItems() {
-    return itemRepository.findAll();
+    return inventoryItemRepository.findAll();
   }
 
   @Override
   public void deleteItems() {
-    itemRepository.deleteAll();
+    inventoryItemRepository.deleteAll();
   }
 
   @Override
   public void deleteItemById(Long id) {
-    itemRepository.deleteById(id);
+    inventoryItemRepository.deleteById(id);
   }
 
   @Override
@@ -72,9 +78,10 @@ public class ItemServiceImpl implements ItemService {
     it.setName(details.getName());
     it.setCategory(details.getCategory());
     it.setPrice(details.getPrice());
-    if ("Book".equalsIgnoreCase(details.getCategory())){
+    if ("Book".equalsIgnoreCase(details.getCategory())) {
       BookDetails bookDetails = new BookDetails();
       bookDetails.setYear(details.getYear());
+      bookDetails.setType(details.getType());
       bookDetails.setAuthor(details.getAuthor());
       bookDetails.setPublisher(details.getPublisher());
       bookDetails.setBestseller(details.getBestseller());
@@ -82,7 +89,7 @@ public class ItemServiceImpl implements ItemService {
       bookDetails.setDescription(details.getDescription());
       it.setBookDetails(bookDetails);
     }
-    return itemRepository.saveAndFlush(it);
+    return inventoryItemRepository.saveAndFlush(it);
   }
 
 

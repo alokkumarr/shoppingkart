@@ -16,6 +16,7 @@ public class BookDetails {
   private String language;
   private String author;
   private String year;
+  private String type;
   private String description;
 
   public String getDescription() {
@@ -72,5 +73,13 @@ public class BookDetails {
 
   public void setYear(String year) {
     this.year = year;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 }

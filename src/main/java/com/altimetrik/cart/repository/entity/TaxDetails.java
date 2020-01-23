@@ -10,11 +10,20 @@ public class TaxDetails {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long taxId;
 
+  private String state;
   private String country;
   private String category;
   private Double salesTax;
   private Double vat;
   private Double importDuty;
+
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
 
   public Long getTaxId() {
     return taxId;
