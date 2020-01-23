@@ -52,7 +52,6 @@ public class SalesServiceImpl implements SalesService {
 
   @Override
   public Receipt checkOut(Long customerId) {
-
     Receipt receipt = new Receipt();
     if (customerId > 0) {
       Customer customer = customerService.getCustomerById(customerId);
@@ -70,18 +69,28 @@ public class SalesServiceImpl implements SalesService {
         List<ProductItem> productItems = new ArrayList<>();
         List<AddItemCart> cartItems = cartRepository.findItemByCustomerId(customerId);
         if (cartItems != null && !cartItems.isEmpty()) {
+          Double[] mBookPrice = {0.0};
+          Double[] totalBaseAmount = {0.0};
           cartItems.stream().forEach(addItemCart -> {
             ProductItem productItem = new ProductItem();
             productItem.setName(addItemCart.getName());
             productItem.setPrice(addItemCart.getPrice());
             productItem.setDescription(addItemCart.getDescription());
+            productItem.setQty(addItemCart.getQuantity());
             TaxDetails taxDetails = taxDetail[0];
+
             if (taxDetails != null) {
               Double basePrice = Double.valueOf(addItemCart.getPrice());
               basePrice = addItemCart.getQuantity() > 0 ? basePrice * addItemCart.getQuantity() : basePrice;
+              totalBaseAmount[0] += basePrice;
               Double salesTax = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getSalesTax()));
               Double vat = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getVat()));
               Double dutyTax = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getImportDuty()));
+
+              // calculate management book price
+              if ("Management".equalsIgnoreCase(addItemCart.getProductType())) {
+                mBookPrice[0] += addItemCart.getPrice() * addItemCart.getQuantity();
+              }
 
               // add the tax details for each item and total price
               productItem.setTax(salesTax);
@@ -90,9 +99,6 @@ public class SalesServiceImpl implements SalesService {
               Double totalPrice = basePrice + vat + salesTax + dutyTax;
               productItem.setTotalPrice(Double.valueOf(df.format(totalPrice)));
               productItems.add(productItem);
-
-              // add the details in sales table
-              persistSalesDetails(productItem);
             }
           });
           receipt.setProductItems(productItems);
@@ -104,11 +110,15 @@ public class SalesServiceImpl implements SalesService {
           // calculate the discount
           List<Discount> discounts = discountService.fetchAllDiscount();
           if (discounts != null && !discounts.isEmpty()) {
-            Optional<Discount> discountList = discounts.stream().filter(dis -> dis.getAmount() > totalAmount
-                || dis.getMaxAmount() < totalAmount).findAny();
+            // don't include management books amount
+            Double amount = totalBaseAmount[0] - mBookPrice[0];
+            Optional<Discount> discountList = discounts.stream().filter(dis -> amount > dis.getAmount()
+                && amount < dis.getMaxAmount()).findAny();
             if (discountList.isPresent()) {
-              Double finalDiscountAmount = calculateDiscountOrTaxPrice(totalAmount, Double.valueOf(discountList.get().getDiscount()));
+              Double finalDiscountAmount = calculateDiscountOrTaxPrice(amount, Double.valueOf(discountList.get().getDiscount()));
               receipt.setDiscount(Double.valueOf(df.format(finalDiscountAmount)));
+            } else {
+              receipt.setDiscount(0.0);
             }
           }
           // final amount to be paid
@@ -119,9 +129,5 @@ public class SalesServiceImpl implements SalesService {
     }
     // send the final receipt as json format
     return receipt;
-  }
-
-  private void persistSalesDetails(ProductItem productItem) {
-
   }
 }

@@ -36,18 +36,20 @@ public class AddToKartServiceImpl implements AddToKartService {
       Customer customer = customerService.getCustomerById(custRef.getCustomerId());
       if (customer.getId() > 0) {
         AddToCartItem cartItem = addToCartRequest.getCartItem();
-        if (!StringUtils.isEmpty(cartItem.getItemId())) {
-          Long itemId = Long.valueOf(cartItem.getItemId());
-          Item item = itemService.getItemById(itemId);
-          // process add item details in table
-          List<AddItemCart> list = cartRepository.findItemBySKU(item.getSku());
-          if (list != null && !list.isEmpty()) {
-            cartRepository.updateItemBySKU(cartItem.getQty(), list.get(0).getId());
-          } else {
-            ATCItem atcItem = buildItem(cartItem, item);
-            AddItemCart addItemCart = getAddItemCart(customer.getId(), atcItem);
-            addItemCart.setDescription(item.getBookDetails().getDescription());
-            cartRepository.save(addItemCart);
+        if (!StringUtils.isEmpty(cartItem.getSku())) {
+          List<Item> itemList = itemService.getItemBySKU(cartItem.getSku());
+          Item item = itemList != null && !itemList.isEmpty() ? itemList.get(0) : null;
+          if (item != null) {
+            // process add item details in table
+            List<AddItemCart> list = cartRepository.findItemBySKU(item.getSku());
+            if (list != null && !list.isEmpty()) {
+              cartRepository.updateItemBySKU(cartItem.getQty(), list.get(0).getId());
+            } else {
+              ATCItem atcItem = buildItem(cartItem, item);
+              AddItemCart addItemCart = getAddItemCart(customer.getId(), atcItem);
+              addItemCart.setDescription(item.getBookDetails().getDescription());
+              cartRepository.save(addItemCart);
+            }
           }
 
           // send all cart details to user
@@ -89,6 +91,23 @@ public class AddToKartServiceImpl implements AddToKartService {
     return cartResponse;
   }
 
+  @Override
+  public List<AddItemCart> getCartDetails(Long customerId) {
+    return cartRepository.findItemByCustomerId(customerId);
+  }
+
+  @Override
+  public Integer deleteCartByCustomerId(Long customerId) {
+    return cartRepository.deleteItemByCategory(customerId);
+  }
+
+  /**
+   * Build items details.
+   *
+   * @param cartItem
+   * @param item
+   * @return
+   */
   private ATCItem buildItem(AddToCartItem cartItem, Item item) {
     ATCItem atcItem = new ATCItem();
     atcItem.setItemId(item.getId());
@@ -101,6 +120,13 @@ public class AddToKartServiceImpl implements AddToKartService {
     return atcItem;
   }
 
+  /**
+   * Build the cart details by the customer id
+   *
+   * @param customerId
+   * @param atcItem
+   * @return AddItemCart
+   */
   private AddItemCart getAddItemCart(Long customerId, ATCItem atcItem) {
     AddItemCart addItemCart = new AddItemCart();
     addItemCart.setItemId(atcItem.getItemId());

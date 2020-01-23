@@ -28,4 +28,9 @@ public interface AddItemCartRepository extends CrudRepository<AddItemCart, Long>
 
   @Query(value = "SELECT * FROM ADD_TO_CART f where f.customer_id = :customerId", nativeQuery = true)
   List<AddItemCart> findItemByCustomerId(@Param("customerId") Long customerId);
+
+  @Modifying
+  @Transactional
+  @Query(value = "DELETE FROM ADD_TO_CART f where f.customer_id = :customerId", nativeQuery = true)
+  Integer deleteItemByCategory(@Param("customerId") Long customerId);
 }

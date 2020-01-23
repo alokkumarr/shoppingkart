@@ -8,6 +8,7 @@ public class ProductItem implements Serializable {
   private Double price;
   private Double vat;
   private Double tax;
+  private Integer qty;
   private Double duties;
   private Double totalPrice;
   private String description;
@@ -54,6 +55,14 @@ public class ProductItem implements Serializable {
 
   public Double getTotalPrice() {
     return totalPrice;
+  }
+
+  public Integer getQty() {
+    return qty;
+  }
+
+  public void setQty(Integer qty) {
+    this.qty = qty;
   }
 
   public void setTotalPrice(Double totalPrice) {

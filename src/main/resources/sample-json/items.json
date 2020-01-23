@@ -1,41 +1,56 @@
-{"items": [
-  {
-    "sku": "IB123",
-    "name": "One India Girl",
-    "category": "Book",
-    "type": "Novel",
-    "publisher": "Oxford",
-    "bestseller": "yes",
-    "language": "English, French",
-    "author": "Chetan Bhagat",
-    "price": 256.98,
-    "year": "2006",
-    "description": "Romantic story"
-  },
-  {
-    "sku": "IB124",
-    "name": "The Great Gatsby",
-    "category": "Book",
-    "type": "Novel",
-    "publisher": "Oxford",
-    "bestseller": "yes",
-    "language": "English, French",
-    "author": "Fitzgerald, F. Scott",
-    "price": 456.98,
-    "year": "2009",
-    "description": "Suspense and drama"
-  },
-  {
-    "sku": "IB1256",
-    "name": "A Passage to India",
-    "category": "Book",
-    "type": "Novel",
-    "publisher": "Oxford",
-    "bestseller": "yes",
-    "language": "English, French",
-    "author": "Fitzgerald, F.",
-    "price": 356.7,
-    "year": "2006",
-    "description": "Indian history and culture"
-  }
-]}
+{
+  "items": [
+    {
+      "sku": "IB123",
+      "name": "One India Girl",
+      "category": "Book",
+      "type": "Novel",
+      "publisher": "Oxford",
+      "bestseller": "yes",
+      "language": "English, French",
+      "author": "Chetan Bhagat",
+      "price": 256.98,
+      "year": "2006",
+      "description": "Romantic story"
+    },
+    {
+      "sku": "IB124",
+      "name": "The Great Gatsby",
+      "category": "Book",
+      "type": "Novel",
+      "publisher": "Oxford",
+      "bestseller": "yes",
+      "language": "English, French",
+      "author": "Fitzgerald, F. Scott",
+      "price": 456.98,
+      "year": "2009",
+      "description": "Suspense and drama"
+    },
+    {
+      "sku": "IB125",
+      "name": "A Passage to India",
+      "category": "Book",
+      "type": "Novel",
+      "publisher": "Oxford",
+      "bestseller": "yes",
+      "language": "English, French",
+      "author": "Fitzgerald, F.",
+      "price": 356.7,
+      "year": "2006",
+      "description": "Indian history and culture"
+    },
+    {
+      "sku": "IB127",
+      "name": "Management Book",
+      "category": "Book",
+      "type": "Management",
+      "publisher": "Oxford",
+      "bestseller": "No",
+      "language": "English, French",
+      "author": "Dr. Eugene F. Brigham",
+      "price": 456.98,
+      "year": "2009",
+      "description": "Financial Management: Core Concepts"
+    }
+  ]
+}

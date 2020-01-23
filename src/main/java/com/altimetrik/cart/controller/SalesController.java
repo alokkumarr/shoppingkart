@@ -34,7 +34,7 @@ import java.io.IOException;
     })
 public class SalesController {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SalesController.class);
 
   private static final String MISSING_REQUEST = "Missing request body to add item in the cart.";
 
@@ -111,6 +111,32 @@ public class SalesController {
     return cartResponse;
   }
 
+  @ApiOperation(
+      value = "",
+      nickname = "getCartDetails",
+      notes = "This api will fetch the items from the cart.",
+      response = ResponseEntity.class)
+  @GetMapping(value = "/cart/{customerId}")
+  public Object fetchCartDetails(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 @PathVariable(name = "customerId") Long customerId) {
+
+    AddToCartResponse cartResponse = new AddToCartResponse();
+    try {
+      if (customerId == null || customerId <= 0) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, MISSING_REQUEST);
+        cartResponse.setMessage(MISSING_REQUEST);
+        return cartResponse;
+      }
+      return kartService.getCartDetails(customerId);
+    } catch (IOException ex) {
+      LOGGER.error("Error during the item to the cart {}", ex);
+    }
+    cartResponse.setMessage("No details available for cart.");
+    return cartResponse;
+  }
+
 
   @ApiOperation(
       value = "",
@@ -129,8 +155,15 @@ public class SalesController {
             "Please provide the customer Id to checkout.");
       }
       Receipt receipt = salesService.checkOut(customerId);
-      outResponse.setReceiptDetails(receipt);
-      outResponse.setMessage("Receipt created.");
+      if (receipt != null && receipt.getProductItems() != null) {
+        outResponse.setReceiptDetails(receipt);
+        outResponse.setMessage("Receipt created.");
+
+        // clear the cart details
+        kartService.deleteCartByCustomerId(customerId);
+      } else {
+        outResponse.setMessage("Please add items in the cart.");
+      }
     } catch (IOException ex) {
       LOGGER.error("Error occurred while checkout cart.");
     }
