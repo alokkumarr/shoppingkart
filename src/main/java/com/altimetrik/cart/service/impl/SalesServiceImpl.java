@@ -41,7 +41,7 @@ public class SalesServiceImpl implements SalesService {
    * @param valueOf
    * @return
    */
-  private static Double calculateTax(Double basePrice, Double valueOf) {
+  private static Double calculateDiscountOrTaxPrice(Double basePrice, Double valueOf) {
     if (basePrice > 0) {
       Double taxValue = (basePrice * valueOf) / 100;
       return Double.valueOf(df.format(taxValue));
@@ -78,9 +78,10 @@ public class SalesServiceImpl implements SalesService {
             TaxDetails taxDetails = taxDetail[0];
             if (taxDetails != null) {
               Double basePrice = Double.valueOf(addItemCart.getPrice());
-              Double salesTax = calculateTax(basePrice, Double.valueOf(taxDetails.getSalesTax()));
-              Double vat = calculateTax(basePrice, Double.valueOf(taxDetails.getVat()));
-              Double dutyTax = calculateTax(basePrice, Double.valueOf(taxDetails.getImportDuty()));
+              basePrice = addItemCart.getQuantity() > 0 ? basePrice * addItemCart.getQuantity() : basePrice;
+              Double salesTax = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getSalesTax()));
+              Double vat = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getVat()));
+              Double dutyTax = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getImportDuty()));
 
               // add the tax details for each item and total price
               productItem.setTax(salesTax);
@@ -106,7 +107,8 @@ public class SalesServiceImpl implements SalesService {
             Optional<Discount> discountList = discounts.stream().filter(dis -> dis.getAmount() > totalAmount
                 || dis.getMaxAmount() < totalAmount).findAny();
             if (discountList.isPresent()) {
-              receipt.setDiscount(Double.valueOf(df.format(discountList.get().getDiscount())));
+              Double finalDiscountAmount = calculateDiscountOrTaxPrice(totalAmount, Double.valueOf(discountList.get().getDiscount()));
+              receipt.setDiscount(Double.valueOf(df.format(finalDiscountAmount)));
             }
           }
           // final amount to be paid
