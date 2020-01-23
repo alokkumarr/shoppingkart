@@ -15,6 +15,8 @@ public class ATCItem {
   private String name;
   @JsonProperty("productType")
   private String productType;
+  @JsonProperty("description")
+  private String description;
 
   public Long getItemId() {
     return itemId;
@@ -62,5 +64,13 @@ public class ATCItem {
 
   public void setPrice(Double price) {
     this.price = price;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }

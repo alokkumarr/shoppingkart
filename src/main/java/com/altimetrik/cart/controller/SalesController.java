@@ -3,7 +3,10 @@ package com.altimetrik.cart.controller;
 import com.altimetrik.cart.model.request.AddToCartRequest;
 import com.altimetrik.cart.model.request.CustomerRef;
 import com.altimetrik.cart.model.response.AddToCartResponse;
+import com.altimetrik.cart.model.response.CheckOutResponse;
+import com.altimetrik.cart.model.response.Receipt;
 import com.altimetrik.cart.service.AddToKartService;
+import com.altimetrik.cart.service.SalesService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -34,6 +37,9 @@ public class SalesController {
   private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
 
   private static final String MISSING_REQUEST = "Missing request body to add item in the cart.";
+
+  @Autowired
+  private SalesService salesService;
   @Autowired
   private AddToKartService kartService;
 
@@ -112,20 +118,22 @@ public class SalesController {
       notes = "This api will checkout the cart details and generate an invoice.",
       response = ResponseEntity.class)
   @GetMapping(value = "/checkout/{customerId}")
-  public Object checkout(HttpServletRequest request, HttpServletResponse response,
-                         @PathVariable(name = "customerId") Long customerId) {
+  public CheckOutResponse checkout(HttpServletRequest request, HttpServletResponse response,
+                                   @PathVariable(name = "customerId") Long customerId) {
 
+    CheckOutResponse outResponse = new CheckOutResponse();
     try {
       if (customerId <= 0) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         response.sendError(HttpServletResponse.SC_BAD_REQUEST,
             "Please provide the customer Id to checkout.");
       }
-
-
+      Receipt receipt = salesService.checkOut(customerId);
+      outResponse.setReceiptDetails(receipt);
+      outResponse.setMessage("Receipt created.");
     } catch (IOException ex) {
       LOGGER.error("Error occurred while checkout cart.");
     }
-    return null;
+    return outResponse;
   }
 }

@@ -49,6 +49,7 @@ public class AddToKartServiceImpl implements AddToKartService {
             cartRepository.updateItemBySKU(cartItem.getQty(), list.get(0).getId());
           } else {
             AddItemCart addItemCart = getAddItemCart(customer.getId(), atcItem);
+            addItemCart.setDescription(item.getBookDetails().getDescription());
             cartRepository.save(addItemCart);
           }
           atcItems.add(atcItem);
@@ -79,6 +80,7 @@ public class AddToKartServiceImpl implements AddToKartService {
           Integer deletedCart = cartRepository.deleteItemBySKU(item.getSku());
           if (deletedCart > 0) {
             ATCItem atcItem = buildItem(cartItem, item);
+
             atcItems.add(atcItem);
             cartResponse.setCartResponse(atcItems);
             cartResponse.setMessage("Items cleared from Cart.");

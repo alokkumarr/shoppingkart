@@ -19,6 +19,7 @@ public class AddItemCart {
   private String name;
   private Double price;
   private String productType;
+  private String description;
 
   public Long getId() {
     return id;
@@ -82,5 +83,13 @@ public class AddItemCart {
 
   public void setProductType(String productType) {
     this.productType = productType;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }

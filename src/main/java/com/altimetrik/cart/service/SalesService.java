@@ -1,9 +1,7 @@
 package com.altimetrik.cart.service;
 
-import com.altimetrik.cart.model.request.AddToCartRequest;
-import com.altimetrik.cart.model.response.AddToCartResponse;
+import com.altimetrik.cart.model.response.Receipt;
 
 public interface SalesService {
-  AddToCartResponse addToKart(AddToCartRequest addToCartRequest);
-  AddToCartResponse deleteCart(AddToCartRequest addToCartRequest);
+  Receipt checkOut(Long customerId);
 }
