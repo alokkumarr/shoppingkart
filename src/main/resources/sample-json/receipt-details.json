@@ -1,0 +1,30 @@
+{
+  "receiptDetails": {
+    "discount": 0.0,
+    "totalAmount": 3196.61,
+    "amountToPaid": 3196.61,
+    "productItems": [
+      {
+        "name": "One India Girl",
+        "price": 256.98,
+        "vat": 46.26,
+        "tax": 92.51,
+        "qty": 3,
+        "duties": 38.55,
+        "totalPrice": 948.26,
+        "description": "Romantic story"
+      },
+      {
+        "name": "Management Book",
+        "price": 456.98,
+        "vat": 109.68,
+        "tax": 219.35,
+        "qty": 4,
+        "duties": 91.4,
+        "totalPrice": 2248.35,
+        "description": "Financial Management: Core Concepts"
+      }
+    ]
+  },
+  "message": "Receipt created."
+}

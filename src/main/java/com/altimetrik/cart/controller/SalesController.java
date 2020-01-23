@@ -83,7 +83,7 @@ public class SalesController {
       notes = "This api will add the items to the cart and calculate the Tax, VAT and imported duties.",
       response = ResponseEntity.class)
   @DeleteMapping(value = "/cart")
-  public Object updateCart(HttpServletRequest request,
+  public Object deleteCart(HttpServletRequest request,
                            HttpServletResponse response,
                            @RequestBody(required = false) AddToCartRequest cartRequest) {
 
