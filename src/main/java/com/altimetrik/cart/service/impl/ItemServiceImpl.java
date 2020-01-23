@@ -3,6 +3,7 @@ package com.altimetrik.cart.service.impl;
 import com.altimetrik.cart.model.ItemDetails;
 import com.altimetrik.cart.model.Items;
 import com.altimetrik.cart.repository.ItemRepository;
+import com.altimetrik.cart.repository.entity.BookDetails;
 import com.altimetrik.cart.repository.entity.Item;
 import com.altimetrik.cart.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +23,21 @@ public class ItemServiceImpl implements ItemService {
     List<Item> itemList = new ArrayList<>();
     items.getItemDetails().stream().forEach(details -> {
       Item item = new Item();
-      item.setIsbn(details.getIsbn());
-      item.setYear(details.getYear());
-      item.setTitle(details.getTitle());
+      item.setName(details.getName());
+      item.setSku(details.getSku());
       item.setCategory(details.getCategory());
-      item.setAuthor(details.getAuthor());
-      item.setPublisher(details.getPublisher());
-      item.setBestseller(details.getBestseller());
       item.setPrice(details.getPrice());
-      item.setLanguage(details.getLanguage());
-      item.setDescription(details.getDescription());
+      if ("Book".equalsIgnoreCase(details.getCategory())){
+        BookDetails bookDetails = new BookDetails();
+        bookDetails.setYear(details.getYear());
+        bookDetails.setAuthor(details.getAuthor());
+        bookDetails.setPublisher(details.getPublisher());
+        bookDetails.setBestseller(details.getBestseller());
+        bookDetails.setLanguage(details.getLanguage());
+        bookDetails.setDescription(details.getDescription());
+        item.setBookDetails(bookDetails);
+      }
+
       itemList.add(item);
     });
     return itemRepository.saveAll(itemList);
@@ -62,16 +68,20 @@ public class ItemServiceImpl implements ItemService {
     Item it = new Item();
     ItemDetails details = items.getItemDetails().get(0);
     it.setId(details.getId());
-    it.setIsbn(details.getIsbn());
-    it.setYear(details.getYear());
-    it.setTitle(details.getTitle());
+    it.setSku(details.getSku());
+    it.setName(details.getName());
     it.setCategory(details.getCategory());
-    it.setAuthor(details.getAuthor());
-    it.setPublisher(details.getPublisher());
-    it.setBestseller(details.getBestseller());
     it.setPrice(details.getPrice());
-    it.setDescription(details.getDescription());
-    it.setLanguage(details.getLanguage());
+    if ("Book".equalsIgnoreCase(details.getCategory())){
+      BookDetails bookDetails = new BookDetails();
+      bookDetails.setYear(details.getYear());
+      bookDetails.setAuthor(details.getAuthor());
+      bookDetails.setPublisher(details.getPublisher());
+      bookDetails.setBestseller(details.getBestseller());
+      bookDetails.setLanguage(details.getLanguage());
+      bookDetails.setDescription(details.getDescription());
+      it.setBookDetails(bookDetails);
+    }
     return itemRepository.saveAndFlush(it);
   }
 

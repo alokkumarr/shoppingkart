@@ -6,10 +6,15 @@ public class ItemDetails {
 
   @JsonProperty("id")
   private Long id;
-  @JsonProperty("isbn")
-  private String isbn;
-  @JsonProperty("title")
-  private String title;
+  @JsonProperty("sku")
+  private String sku;
+  @JsonProperty("name")
+  private String name;
+  @JsonProperty("price")
+  private Double price;
+  @JsonProperty("description")
+  private String description;
+
   @JsonProperty("year")
   private String year;
   @JsonProperty("publisher")
@@ -22,10 +27,6 @@ public class ItemDetails {
   private String language;
   @JsonProperty("author")
   private String author;
-  @JsonProperty("price")
-  private Double price;
-  @JsonProperty("description")
-  private String description;
 
   public Long getId() {
     return id;
@@ -35,20 +36,20 @@ public class ItemDetails {
     this.id = id;
   }
 
-  public String getIsbn() {
-    return isbn;
+  public String getSku() {
+    return sku;
   }
 
-  public void setIsbn(String isbn) {
-    this.isbn = isbn;
+  public void setSku(String sku) {
+    this.sku = sku;
   }
 
-  public String getTitle() {
-    return title;
+  public String getName() {
+    return name;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getYear() {

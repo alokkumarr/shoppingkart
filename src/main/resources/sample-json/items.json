@@ -1,7 +1,7 @@
 {"items": [
   {
-    "isbn": "IB123",
-    "title": "One India Girl",
+    "sku": "IB123",
+    "name": "One India Girl",
     "category": "Book",
     "publisher": "Oxford",
     "bestseller": "yes",
@@ -12,8 +12,8 @@
     "description": "Romantic story"
   },
   {
-    "isbn": "IB124",
-    "title": "The Great Gatsby",
+    "sku": "IB124",
+    "name": "The Great Gatsby",
     "category": "Book",
     "publisher": "Oxford",
     "bestseller": "yes",
@@ -24,8 +24,8 @@
     "description": "Suspense and drama"
   },
   {
-    "isbn": "IB1256",
-    "title": "A Passage to India",
+    "sku": "IB1256",
+    "name": "A Passage to India",
     "category": "Book",
     "publisher": "Oxford",
     "bestseller": "yes",

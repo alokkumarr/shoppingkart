@@ -11,16 +11,28 @@ public class Item {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String isbn;
+  private String sku;
   private String category;
-  private String title;
-  private String publisher;
-  private String bestseller;
-  private String language;
-  private String author;
+  private String name;
   private Double price;
-  private String year;
-  private String description;
+
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinColumn(name = "ITEM_ID")
+  private BookDetails bookDetails;
+
+
+  public Item() {
+    super();
+  }
+
+  public Item(String sku, String category, String name, Double price, String description, BookDetails bookDetails) {
+    super();
+    this.sku = sku;
+    this.category = category;
+    this.name = name;
+    this.price = price;
+    this.bookDetails = bookDetails;
+  }
 
   public Long getId() {
     return id;
@@ -30,13 +42,6 @@ public class Item {
     this.id = id;
   }
 
-  public String getIsbn() {
-    return isbn;
-  }
-
-  public void setIsbn(String isbn) {
-    this.isbn = isbn;
-  }
 
   public String getCategory() {
     return category;
@@ -46,45 +51,6 @@ public class Item {
     this.category = category;
   }
 
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public String getPublisher() {
-    return publisher;
-  }
-
-  public void setPublisher(String publisher) {
-    this.publisher = publisher;
-  }
-
-  public String getBestseller() {
-    return bestseller;
-  }
-
-  public void setBestseller(String bestseller) {
-    this.bestseller = bestseller;
-  }
-
-  public String getLanguage() {
-    return language;
-  }
-
-  public void setLanguage(String language) {
-    this.language = language;
-  }
-
-  public String getAuthor() {
-    return author;
-  }
-
-  public void setAuthor(String author) {
-    this.author = author;
-  }
 
   public Double getPrice() {
     return price;
@@ -94,19 +60,27 @@ public class Item {
     this.price = price;
   }
 
-  public String getYear() {
-    return year;
+  public String getSku() {
+    return sku;
   }
 
-  public void setYear(String year) {
-    this.year = year;
+  public void setSku(String sku) {
+    this.sku = sku;
   }
 
-  public String getDescription() {
-    return description;
+  public String getName() {
+    return name;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public BookDetails getBookDetails() {
+    return bookDetails;
+  }
+
+  public void setBookDetails(BookDetails bookDetails) {
+    this.bookDetails = bookDetails;
   }
 }
