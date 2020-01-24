@@ -22,17 +22,18 @@ Step to run the jar file:
 
 Service URL for Swagger and H2 Database
 ---
-All the api details are available in the swagger document.
+All the api details are available in the swagger document. Below is the swagger ui url:
 
-http://localhost:8900/swagger-ui.html#/
+`http://localhost:8900/swagger-ui.html#/`
 ![Image description](https://github.com/alokSNCR/shoppingkart/blob/master/swagger-cart.png)
 
-All the items available in the invetory can be find by the use of below item inventory endpoint.
+#### Item Inventory Details
+All the items available in the inventory can be find by the use of below item inventory endpoint.
 
 `http://localhost:8900/admin/catalog/item`
 
 - Response of catalog inventory
-```$xslt
+```$json
 [
   {
     "id": 1,
@@ -105,9 +106,10 @@ All the items available in the invetory can be find by the use of below item inv
 ]
 ```
 
+#### Add TO Cart Details
 For every add to cart request sku will be unique for each product.
 - Sample add to cart request:
-```$xslt
+```$json
 {
     "cartItem": {
         "itemId": "1",
@@ -151,9 +153,52 @@ For every add to cart request sku will be unique for each product.
 }
 ```
 
+#### Checkout Functionality Details
+Below is the url for checkout cart. Checkout API require the customer id which will be passed a request parameter.
+
+`http://localhost:8900/user/sales/checkout/1`
+
+The response of checkout is the receipt details which is in the form of Json.
+
+- Sample receipt response:
+```$json
+{
+    "receiptDetails": {
+        "discount": 0.0,
+        "totalAmount": 2880.53,
+        "amountToPaid": 2880.53,
+        "productItems": [
+            {
+                "name": "Management Book",
+                "price": 456.98,
+                "vat": 109.68,
+                "tax": 219.35,
+                "qty": 4,
+                "duties": 91.4,
+                "totalPrice": 2248.35,
+                "description": "Financial Management: Core Concepts"
+            },
+            {
+                "name": "One India Girl",
+                "price": 256.98,
+                "vat": 30.84,
+                "tax": 61.68,
+                "qty": 2,
+                "duties": 25.7,
+                "totalPrice": 632.18,
+                "description": "Romantic story"
+            }
+        ]
+    },
+    "message": "Receipt created."
+}
+```
+
+
+### H2 Database Details
 In-memory h2 database used to demonstrate the shopping kart. Below is the url for in-memory database details, no password required to connect with database.Below url provide all the in-memory database details.
 
-http://localhost:8900/h2-console/login.jsp
+`http://localhost:8900/h2-console/login.jsp`
 
 ![Image description](https://github.com/alokSNCR/shoppingkart/blob/master/h2-database.png)
 
