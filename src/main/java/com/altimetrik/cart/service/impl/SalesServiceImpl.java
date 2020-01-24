@@ -1,5 +1,6 @@
 package com.altimetrik.cart.service.impl;
 
+import com.altimetrik.cart.model.response.CheckOutResponse;
 import com.altimetrik.cart.model.response.ProductItem;
 import com.altimetrik.cart.model.response.Receipt;
 import com.altimetrik.cart.repository.AddItemCartRepository;
@@ -51,11 +52,12 @@ public class SalesServiceImpl implements SalesService {
   }
 
   @Override
-  public Receipt checkOut(Long customerId) {
+  public CheckOutResponse checkOut(Long customerId) {
+    CheckOutResponse outResponse = new CheckOutResponse();
     Receipt receipt = new Receipt();
     if (customerId > 0) {
       Customer customer = customerService.getCustomerById(customerId);
-      if (customer != null && customer.getId() > 0) {
+      if (customer != null && customer.getId() != null && customer.getId() > 0) {
         Address add = customer.getCustomerAddress().stream()
             .filter(address -> "Billing".equalsIgnoreCase(address.getType())
                 || "Service".equalsIgnoreCase(address.getType())).findAny().get();
@@ -130,9 +132,12 @@ public class SalesServiceImpl implements SalesService {
           double finalAmount = totalAmount - receipt.getDiscount();
           receipt.setAmountToPaid(Double.valueOf(df.format(finalAmount)));
         }
+      } else {
+        outResponse.setMessage("No checkout details available for this customer.");
       }
     }
+    outResponse.setReceiptDetails(receipt);
     // send the final receipt as json format
-    return receipt;
+    return outResponse;
   }
 }

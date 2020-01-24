@@ -1,7 +1,7 @@
 package com.altimetrik.cart.service;
 
-import com.altimetrik.cart.model.response.Receipt;
+import com.altimetrik.cart.model.response.CheckOutResponse;
 
 public interface SalesService {
-  Receipt checkOut(Long customerId);
+  CheckOutResponse checkOut(Long customerId);
 }

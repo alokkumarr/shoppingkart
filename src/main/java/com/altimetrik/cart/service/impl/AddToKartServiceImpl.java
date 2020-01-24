@@ -41,7 +41,7 @@ public class AddToKartServiceImpl implements AddToKartService {
       Long customerId = Long.valueOf(custRef.getCustomerId());
       if (customerId > 0) {
         Customer customer = customerService.getCustomerById(customerId);
-        if (customer.getId() > 0) {
+        if (customer != null && customer.getId() != null && customer.getId() > 0) {
           AddToCartItem cartItem = addToCartRequest.getCartItem();
           if (!StringUtils.isEmpty(cartItem.getSku())) {
             List<Item> itemList = itemService.getItemBySKU(cartItem.getSku());
@@ -63,17 +63,21 @@ public class AddToKartServiceImpl implements AddToKartService {
             }
             // send all cart details to user
             List<AddItemCart> cartItems = cartRepository.findItemByCustomerId(customer.getId());
-            cartResponse.setCartResponse(cartItems);
-            cartResponse.setMessage("Item added in the cart.");
+            if (!cartItems.isEmpty()) {
+              cartResponse.setCartResponse(cartItems);
+              cartResponse.setMessage("Item added in the cart.");
+            } else {
+              cartResponse.setMessage("Item not available for the given request.");
+            }
           } else {
             cartResponse.setMessage("No item available for the request.");
           }
         } else {
-          cartResponse.setMessage("You are not authorized  to add kart.");
+          cartResponse.setMessage("Customer not exit in system to add kart.");
         }
       }
     } catch (NumberFormatException ex) {
-      cartResponse.setMessage("Please provide the correct customer Id.");
+      cartResponse.setMessage("Please provide the correct format to request.");
       LOGGER.error(ex.getMessage());
     } catch (SalesException ex) {
       cartResponse.setMessage("Error occurred for add card : " + ex.getMessage());

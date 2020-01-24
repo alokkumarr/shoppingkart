@@ -4,7 +4,6 @@ import com.altimetrik.cart.model.request.AddToCartRequest;
 import com.altimetrik.cart.model.request.CustomerRef;
 import com.altimetrik.cart.model.response.AddToCartResponse;
 import com.altimetrik.cart.model.response.CheckOutResponse;
-import com.altimetrik.cart.model.response.Receipt;
 import com.altimetrik.cart.service.AddToKartService;
 import com.altimetrik.cart.service.SalesService;
 import io.swagger.annotations.Api;
@@ -180,13 +179,13 @@ public class SalesController {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST,
             "Please provide the customer Id to checkout.");
       }
-      Receipt receipt = salesService.checkOut(customerId);
-      if (receipt != null && receipt.getProductItems() != null) {
-        outResponse.setReceiptDetails(receipt);
-        outResponse.setMessage("Receipt created.");
+      CheckOutResponse out = salesService.checkOut(customerId);
+      if (out != null && out.getReceiptDetails() != null && out.getReceiptDetails().getProductItems() != null) {
+        out.setMessage("Receipt created.");
 
         // clear the cart details
         kartService.deleteCartByCustomerId(customerId);
+        return out;
       } else {
         outResponse.setMessage("Your cart is empty. Please add item to the cart.");
       }
