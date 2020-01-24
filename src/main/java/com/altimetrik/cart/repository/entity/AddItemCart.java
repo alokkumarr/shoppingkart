@@ -19,9 +19,9 @@ public class AddItemCart {
   private String name;
   private Double price;
   private String category;
+  private String imported;
   private String productType;
   private String description;
-  private String imported;
 
   public Long getId() {
     return id;

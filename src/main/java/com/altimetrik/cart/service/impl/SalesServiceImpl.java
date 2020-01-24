@@ -63,7 +63,7 @@ public class SalesServiceImpl implements SalesService {
         TaxDetails[] taxDetail = {new TaxDetails()};
         if (add.getState() != null && add.getCountry() != null) {
           taxDetail[0] = taxDetailService.findByRegion(add.getState(), add.getCountry());
-          LOGGER.info("Tax details from for the region : " + taxDetail);
+          LOGGER.info("Tax details from for the region : {}", taxDetail);
         }
 
         List<ProductItem> productItems = new ArrayList<>();
@@ -89,7 +89,7 @@ public class SalesServiceImpl implements SalesService {
               // check for imported book
               Double dutyTax = 0.0;
               if ("yes".equalsIgnoreCase(addItemCart.getImported())) {
-                dutyTax = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getImportDuty()));
+                dutyTax = calculateDiscountOrTaxPrice(basePrice, taxDetails.getImportDuty());
               }
 
               // calculate management book price
@@ -120,7 +120,7 @@ public class SalesServiceImpl implements SalesService {
             Optional<Discount> discountList = discounts.stream().filter(dis -> amount > dis.getAmount()
                 && amount < dis.getMaxAmount()).findAny();
             if (discountList.isPresent()) {
-              Double finalDiscountAmount = calculateDiscountOrTaxPrice(amount, Double.valueOf(discountList.get().getDiscount()));
+              Double finalDiscountAmount = calculateDiscountOrTaxPrice(amount, discountList.get().getDiscount());
               receipt.setDiscount(Double.valueOf(df.format(finalDiscountAmount)));
             } else {
               receipt.setDiscount(0.0);

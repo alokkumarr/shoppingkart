@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CustomerRef {
   @JsonProperty("id")
-  private Long customerId;
+  private String customerId;
 
-  public Long getCustomerId() {
+  public String getCustomerId() {
     return customerId;
   }
 
-  public void setCustomerId(Long customerId) {
+  public void setCustomerId(String customerId) {
     this.customerId = customerId;
   }
 }

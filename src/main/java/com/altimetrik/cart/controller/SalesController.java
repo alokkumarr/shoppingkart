@@ -36,6 +36,9 @@ public class SalesController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SalesController.class);
 
+  private static final String CUSTOMER_ERROR = "Please provide the correct customer Id.";
+  private static final String CART_MESSAGE = "Please register to add item in the cart.";
+  private static String Error = "Error during the item to the cart {}.";
   private static final String MISSING_REQUEST = "Missing request body to add item in the cart.";
 
   @Autowired
@@ -65,14 +68,23 @@ public class SalesController {
       CustomerRef custRef = cartRequest.getCustomerRef();
       if (custRef == null) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-            "Please register to add item in the cart.");
-        cartResponse.setMessage("Please register to add item in the cart.");
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, CART_MESSAGE);
+        cartResponse.setMessage(CART_MESSAGE);
         return cartResponse;
       }
+      Long customerId = Long.valueOf(custRef.getCustomerId());
+      if (customerId <= 0) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, CUSTOMER_ERROR);
+      }
+
       cartResponse = kartService.addToKart(cartRequest);
+    } catch (NumberFormatException ex) {
+      LOGGER.error(Error, ex);
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      cartResponse.setMessage(CUSTOMER_ERROR);
     } catch (IOException ex) {
-      LOGGER.error("Error during the item to the cart {}", ex);
+      LOGGER.error(Error, ex);
     }
     return cartResponse;
   }
@@ -99,14 +111,26 @@ public class SalesController {
       CustomerRef custRef = cartRequest.getCustomerRef();
       if (custRef == null) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-            "Please register to add item in the cart.");
-        cartResponse.setMessage("Please register to add item in the cart.");
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, CART_MESSAGE);
+        cartResponse.setMessage(CART_MESSAGE);
         return cartResponse;
       }
+
+      Long customerId = Long.valueOf(custRef.getCustomerId());
+      if (customerId <= 0) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+            "Please provide the customer Id to checkout.");
+      }
+
+
       cartResponse = kartService.deleteCart(cartRequest);
+    } catch (NumberFormatException ex) {
+      LOGGER.error(Error, ex);
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      cartResponse.setMessage(CUSTOMER_ERROR);
     } catch (IOException ex) {
-      LOGGER.error("Error during the item to the cart {}", ex);
+      LOGGER.error(Error, ex);
     }
     return cartResponse;
   }
@@ -126,7 +150,7 @@ public class SalesController {
       if (customerId == null || customerId <= 0) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, MISSING_REQUEST);
-        cartResponse.setMessage(MISSING_REQUEST);
+        cartResponse.setMessage(CUSTOMER_ERROR);
         return cartResponse;
       }
       return kartService.getCartDetails(customerId);
@@ -145,10 +169,12 @@ public class SalesController {
       response = ResponseEntity.class)
   @GetMapping(value = "/checkout/{customerId}")
   public CheckOutResponse checkout(HttpServletRequest request, HttpServletResponse response,
-                                   @PathVariable(name = "customerId") Long customerId) {
+                                   @PathVariable(name = "customerId") String custId) {
 
     CheckOutResponse outResponse = new CheckOutResponse();
+
     try {
+      Long customerId = Long.valueOf(custId);
       if (customerId <= 0) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         response.sendError(HttpServletResponse.SC_BAD_REQUEST,
@@ -162,9 +188,14 @@ public class SalesController {
         // clear the cart details
         kartService.deleteCartByCustomerId(customerId);
       } else {
-        outResponse.setMessage("Please add items in the cart.");
+        outResponse.setMessage("Your cart is empty. Please add item to the cart.");
       }
+    } catch (NumberFormatException ex) {
+      LOGGER.error(Error, ex);
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      outResponse.setMessage(CUSTOMER_ERROR);
     } catch (IOException ex) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       LOGGER.error("Error occurred while checkout cart.");
     }
     return outResponse;

@@ -7,7 +7,7 @@ public class AddToCartItem {
   @JsonProperty("itemId")
   private String itemId;
   @JsonProperty("qty")
-  private Integer qty;
+  private String qty;
   @JsonProperty("sku")
   private String sku;
 
@@ -19,11 +19,11 @@ public class AddToCartItem {
     this.itemId = itemId;
   }
 
-  public Integer getQty() {
+  public String getQty() {
     return qty;
   }
 
-  public void setQty(Integer qty) {
+  public void setQty(String qty) {
     this.qty = qty;
   }
 
