@@ -196,7 +196,7 @@ The response of checkout is the receipt details which is in the form of Json.
 
 
 ### H2 Database Details
-In-memory h2 database used to demonstrate the shopping kart. Below is the url for in-memory database details, no password required to connect with database.Below url provide all the in-memory database details.
+In-memory h2 database used to demonstrate the shopping cart. Below is the url for in-memory database details, no password required to connect with database.Below url provide all the in-memory database details.
 
 `http://localhost:8900/h2-console/login.jsp`
 
