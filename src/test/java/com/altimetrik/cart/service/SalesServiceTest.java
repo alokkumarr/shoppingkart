@@ -1,4 +1,4 @@
 package com.altimetrik.cart.service;
 
-public interface SalesDetails {
+public class SalesServiceTest {
 }
