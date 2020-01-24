@@ -20,8 +20,8 @@ public class ItemDetails {
   private String year;
   @JsonProperty("publisher")
   private String publisher;
-  @JsonProperty("bestseller")
-  private String bestseller;
+  @JsonProperty("imported")
+  private String imported;
   @JsonProperty("category")
   private String category;
   @JsonProperty("language")
@@ -69,12 +69,12 @@ public class ItemDetails {
     this.publisher = publisher;
   }
 
-  public String getBestseller() {
-    return bestseller;
+  public String getImported() {
+    return imported;
   }
 
-  public void setBestseller(String bestseller) {
-    this.bestseller = bestseller;
+  public void setImported(String imported) {
+    this.imported = imported;
   }
 
   public String getCategory() {

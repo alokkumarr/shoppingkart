@@ -48,6 +48,7 @@ public class AddToKartServiceImpl implements AddToKartService {
               ATCItem atcItem = buildItem(cartItem, item);
               AddItemCart addItemCart = getAddItemCart(customer.getId(), atcItem);
               addItemCart.setDescription(item.getBookDetails().getDescription());
+              addItemCart.setImported(item.getBookDetails().getImported());
               cartRepository.save(addItemCart);
             }
           }
@@ -115,6 +116,7 @@ public class AddToKartServiceImpl implements AddToKartService {
     atcItem.setName(item.getName());
     atcItem.setCategory(item.getCategory());
     atcItem.setProductType(item.getBookDetails().getType());
+    atcItem.setImported(item.getBookDetails().getImported());
     atcItem.setQty(cartItem.getQty());
     atcItem.setPrice(item.getPrice());
     return atcItem;

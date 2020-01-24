@@ -21,6 +21,7 @@ public class AddItemCart {
   private String category;
   private String productType;
   private String description;
+  private String imported;
 
   public Long getId() {
     return id;
@@ -100,5 +101,13 @@ public class AddItemCart {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public String getImported() {
+    return imported;
+  }
+
+  public void setImported(String imported) {
+    this.imported = imported;
   }
 }

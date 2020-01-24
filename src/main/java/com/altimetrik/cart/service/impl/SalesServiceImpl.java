@@ -85,7 +85,12 @@ public class SalesServiceImpl implements SalesService {
               totalBaseAmount[0] += basePrice;
               Double salesTax = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getSalesTax()));
               Double vat = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getVat()));
-              Double dutyTax = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getImportDuty()));
+
+              // check for imported book
+              Double dutyTax = 0.0;
+              if ("yes".equalsIgnoreCase(addItemCart.getImported())) {
+                dutyTax = calculateDiscountOrTaxPrice(basePrice, Double.valueOf(taxDetails.getImportDuty()));
+              }
 
               // calculate management book price
               if ("Management".equalsIgnoreCase(addItemCart.getProductType())) {
@@ -95,7 +100,7 @@ public class SalesServiceImpl implements SalesService {
               // add the tax details for each item and total price
               productItem.setTax(salesTax);
               productItem.setVat(vat);
-              productItem.setDuties(dutyTax);
+              productItem.setImportDuty(dutyTax);
               Double totalPrice = basePrice + vat + salesTax + dutyTax;
               productItem.setTotalPrice(Double.valueOf(df.format(totalPrice)));
               productItems.add(productItem);

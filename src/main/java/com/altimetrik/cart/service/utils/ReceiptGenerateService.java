@@ -114,7 +114,7 @@ public class ReceiptGenerateService {
           cell.setPaddingRight(5);
           table.addCell(cell);
 
-          cell = new PdfPCell(new Phrase(productItem.getDuties().toString()));
+          cell = new PdfPCell(new Phrase(productItem.getImportDuty().toString()));
           cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
           cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
           cell.setPaddingRight(5);

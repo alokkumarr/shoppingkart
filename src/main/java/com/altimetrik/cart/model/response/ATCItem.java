@@ -19,6 +19,9 @@ public class ATCItem {
   private String productType;
   @JsonProperty("description")
   private String description;
+  @JsonProperty("imported")
+  private String imported;
+
 
   public String getCategory() {
     return category;
@@ -82,5 +85,13 @@ public class ATCItem {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public String getImported() {
+    return imported;
+  }
+
+  public void setImported(String imported) {
+    this.imported = imported;
   }
 }

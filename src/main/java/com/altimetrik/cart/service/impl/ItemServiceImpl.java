@@ -33,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
         bookDetails.setType(details.getType());
         bookDetails.setAuthor(details.getAuthor());
         bookDetails.setPublisher(details.getPublisher());
-        bookDetails.setBestseller(details.getBestseller());
+        bookDetails.setImported(details.getImported());
         bookDetails.setLanguage(details.getLanguage());
         bookDetails.setDescription(details.getDescription());
         item.setBookDetails(bookDetails);
@@ -84,7 +84,7 @@ public class ItemServiceImpl implements ItemService {
       bookDetails.setType(details.getType());
       bookDetails.setAuthor(details.getAuthor());
       bookDetails.setPublisher(details.getPublisher());
-      bookDetails.setBestseller(details.getBestseller());
+      bookDetails.setImported(details.getImported());
       bookDetails.setLanguage(details.getLanguage());
       bookDetails.setDescription(details.getDescription());
       it.setBookDetails(bookDetails);

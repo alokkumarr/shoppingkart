@@ -6,7 +6,7 @@
       "category": "Book",
       "type": "Novel",
       "publisher": "Oxford",
-      "bestseller": "yes",
+      "imported": "yes",
       "language": "English, French",
       "author": "Chetan Bhagat",
       "price": 256.98,

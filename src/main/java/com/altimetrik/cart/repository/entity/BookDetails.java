@@ -12,7 +12,7 @@ public class BookDetails {
   private Long id;
 
   private String publisher;
-  private String bestseller;
+  private String imported;
   private String language;
   private String author;
   private String year;
@@ -43,12 +43,12 @@ public class BookDetails {
     this.publisher = publisher;
   }
 
-  public String getBestseller() {
-    return bestseller;
+  public String getImported() {
+    return imported;
   }
 
-  public void setBestseller(String bestseller) {
-    this.bestseller = bestseller;
+  public void setImported(String imported) {
+    this.imported = imported;
   }
 
   public String getLanguage() {

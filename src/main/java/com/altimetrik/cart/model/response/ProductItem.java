@@ -9,7 +9,7 @@ public class ProductItem implements Serializable {
   private Double vat;
   private Double tax;
   private Integer qty;
-  private Double duties;
+  private Double importDuty;
   private Double totalPrice;
   private String description;
 
@@ -45,12 +45,12 @@ public class ProductItem implements Serializable {
     this.tax = tax;
   }
 
-  public Double getDuties() {
-    return duties;
+  public Double getImportDuty() {
+    return importDuty;
   }
 
-  public void setDuties(Double duties) {
-    this.duties = duties;
+  public void setImportDuty(Double importDuty) {
+    this.importDuty = importDuty;
   }
 
   public Double getTotalPrice() {
