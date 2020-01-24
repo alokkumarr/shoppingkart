@@ -43,6 +43,7 @@ public class AddToKartServiceImpl implements AddToKartService {
         Customer customer = customerService.getCustomerById(customerId);
         if (customer != null && customer.getId() != null && customer.getId() > 0) {
           AddToCartItem cartItem = addToCartRequest.getCartItem();
+          Integer itemId = Integer.valueOf(cartItem.getItemId());
           if (!StringUtils.isEmpty(cartItem.getSku())) {
             List<Item> itemList = itemService.getItemBySKU(cartItem.getSku());
             Item item = itemList != null && !itemList.isEmpty() ? itemList.get(0) : null;
