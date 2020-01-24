@@ -106,7 +106,7 @@ All the items available in the inventory can be find by the use of below item in
 ]
 ```
 
-#### Add TO Cart Details
+#### Add To Cart Details
 For every add to cart request item sku will be unique for each product.
 - Sample add to cart request:
 ```$json

@@ -38,4 +38,9 @@ public class TaxDetailServiceImpl implements TaxDetailService {
     }
     return taxDetailRepository.findBySate(States.getState(state));
   }
+
+  @Override
+  public List<TaxDetails> getAllTaxDetails() {
+    return taxDetailRepository.findAll();
+  }
 }

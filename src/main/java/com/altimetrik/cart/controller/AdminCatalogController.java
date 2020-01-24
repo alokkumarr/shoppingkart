@@ -97,12 +97,6 @@ public class AdminCatalogController {
     return "Item deleted successfully.";
   }
 
-  @ApiOperation(
-      value = "",
-      nickname = "deleteItemDetailsById",
-      notes = "",
-      response = ResponseEntity.class)
-  @DeleteMapping(value = "/item")
   public String deleteItems() {
     itemService.deleteItems();
     return "All Item deleted successfully.";
@@ -137,6 +131,16 @@ public class AdminCatalogController {
 
   @ApiOperation(
       value = "",
+      nickname = "fetchDiscountDetails",
+      notes = "This api will fetch the discount details to item catalog.",
+      response = ResponseEntity.class)
+  @GetMapping(value = "/discount")
+  public List<Discount> fetchDiscountDetails() {
+    return discountService.fetchAllDiscount();
+  }
+
+  @ApiOperation(
+      value = "",
       nickname = "addTaxDetails",
       notes = "This api will add the tax details in to catalog.",
       response = ResponseEntity.class)
@@ -149,4 +153,16 @@ public class AdminCatalogController {
     TaxDetails list = taxDetailService.addTaxDetails(details);
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
+
+  @ApiOperation(
+      value = "",
+      nickname = "fetchTaxDetails",
+      notes = "This api will fetch all the tax details in to catalog.",
+      response = ResponseEntity.class)
+  @GetMapping(value = "/tax")
+  public ResponseEntity<List<TaxDetails>> fetchTaxDetails() {
+    List<TaxDetails> list = taxDetailService.getAllTaxDetails();
+    return new ResponseEntity<>(list, HttpStatus.OK);
+  }
+
 }
