@@ -1,6 +1,6 @@
 {
-  "name": "Admin Name",
-  "email": "admin@gmail.com",
+  "name": "testuser",
+  "email": "user@gmail.com",
   "phoneNumber": 1234567890,
   "addresses": [
     {

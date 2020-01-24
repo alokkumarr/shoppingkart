@@ -1,7 +1,6 @@
 package com.altimetrik.cart.service;
 
 import com.altimetrik.cart.model.Items;
-import com.altimetrik.cart.repository.InventoryItemRepository;
 import com.altimetrik.cart.repository.entity.Item;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,8 +18,6 @@ public class ItemServiceImplTest extends BaseTest {
 
   @Mock
   private ItemService itemService;
-  @Mock
-  private InventoryItemRepository inventoryItemRepository;
   private Items items = new Items();
 
   @Before

@@ -16,8 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 public class LoadOnStartUpService {
@@ -71,7 +73,9 @@ public class LoadOnStartUpService {
   public ObjectNode getJsonObject(String classpath) {
     try {
       Resource resource = new ClassPathResource(classpath);
-      return (ObjectNode) mapper.readTree(resource.getFile());
+      InputStream inputStream = resource.getInputStream();
+      byte[] bdata = FileCopyUtils.copyToByteArray(inputStream);
+      return (ObjectNode) mapper.readTree(bdata);
     } catch (IOException e) {
       LOGGER.error("Exception occurred while reading the file from class path {}", e);
     }

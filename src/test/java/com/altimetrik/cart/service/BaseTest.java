@@ -1,5 +1,6 @@
 package com.altimetrik.cart.service;
 
+import com.altimetrik.cart.repository.entity.AddItemCart;
 import com.altimetrik.cart.repository.entity.Item;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -43,4 +44,19 @@ public class BaseTest {
     itemList.add(item);
     return itemList;
   }
+
+  protected AddItemCart getAddItemCart() {
+    AddItemCart cartItem = new AddItemCart();
+    cartItem.setItemId(123L);
+    cartItem.setSku("IB125");
+    cartItem.setPrice(123.65);
+    cartItem.setName("TestName");
+    cartItem.setCustomerId(1l);
+    cartItem.setQuantity(2);
+    cartItem.setCategory("Book");
+    cartItem.setProductType("Management");
+    cartItem.setDescription("Finalcial Design");
+    return cartItem;
+  }
+
 }
