@@ -55,6 +55,13 @@ public class CheckOutIT extends BaseIT {
     HttpEntity<AddToCartRequest> entity = new HttpEntity<>(getAddItemRequest(), headers);
     restTemplate.exchange(uri("/user/sales/cart"), HttpMethod.POST, entity, AddToCartResponse.class);
 
+    entity = new HttpEntity<>(getAddItemRequest2(), headers);
+    restTemplate.exchange(uri("/user/sales/cart"), HttpMethod.POST, entity, AddToCartResponse.class);
+
+
+    entity = new HttpEntity<>(getAddItemRequest3(), headers);
+    restTemplate.exchange(uri("/user/sales/cart"), HttpMethod.POST, entity, AddToCartResponse.class);
+
     // test with empty cart user
     response = restTemplate.exchange(uri + "/1", HttpMethod.GET, entity, CheckOutResponse.class);
     Assert.assertEquals(200, response.getStatusCode().value());

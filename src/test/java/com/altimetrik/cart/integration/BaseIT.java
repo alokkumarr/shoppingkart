@@ -21,6 +21,33 @@ public class BaseIT {
     cartItem.setItemId("1");
     cartItem.setQty("2");
     cartItem.setSku("IB1277");
+
+    CustomerRef ref = new CustomerRef();
+    ref.setCustomerId("1");
+    cartRequest.setCustomerRef(ref);
+    cartRequest.setCartItem(cartItem);
+    return cartRequest;
+  }
+
+  protected AddToCartRequest getAddItemRequest2() {
+    AddToCartRequest cartRequest = new AddToCartRequest();
+    AddToCartItem cartItem = new AddToCartItem();
+    cartItem.setQty("1");
+    cartItem.setSku("IB1262");
+
+    CustomerRef ref = new CustomerRef();
+    ref.setCustomerId("1");
+    cartRequest.setCustomerRef(ref);
+    cartRequest.setCartItem(cartItem);
+    return cartRequest;
+  }
+
+  protected AddToCartRequest getAddItemRequest3() {
+    AddToCartRequest cartRequest = new AddToCartRequest();
+    AddToCartItem cartItem = new AddToCartItem();
+    cartItem.setQty("1");
+    cartItem.setSku("IB1278");
+
     CustomerRef ref = new CustomerRef();
     ref.setCustomerId("1");
     cartRequest.setCustomerRef(ref);
